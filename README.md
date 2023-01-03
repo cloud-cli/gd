@@ -1,2 +1,6 @@
-# gd
-Container deploy from GitHub registry via webhooks
+# GD
+
+Deploy container from GitHub registry via webhooks
+
+## Usage
+
