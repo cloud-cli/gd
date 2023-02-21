@@ -1,4 +1,4 @@
-import { PublishEvent } from './github.js';
+import { PublishEvent } from './github';
 
 export default {
   published(event: PublishEvent) {
@@ -6,6 +6,6 @@ export default {
 
     const dockerImage = event.package_version.package_url;
     const isFromMain = event.package_version.target_commitish === 'main'
-    const subdomain = isFromMain ?
+    const subdomain = isFromMain ? event.package_version.target_commitish : '';
   },
 };

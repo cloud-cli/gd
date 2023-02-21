@@ -1,4 +1,4 @@
-{
+export default () => ({
   "action": "published",
   "package": {
     "id": 4639072,
@@ -393,4 +393,4 @@
     "type": "Bot",
     "site_admin": false
   }
-}
+})
