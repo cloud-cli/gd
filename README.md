@@ -18,10 +18,13 @@ Next, we create our http server to receive the webhooks:
 import githubDeploy from '@cloud-cli/gd';
 import { readFileSync } from 'fs';
 
-const secret = readFileSync('/home/key.txt');
+const secret = readFileSync('/home/key.txt', 'utf-8');
 const port = 1234;
 
-githubDeploy.withSecret(secret).serve(port);
+const server = githubDeploy.withSecret(secret).serve(port);
+server.on('command', command => {
+  console.log(command);
+})
 ```
 
 In GitHub, go to Webhook settings and point to your server using these settings:

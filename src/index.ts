@@ -1,6 +1,15 @@
-import { Http, Get, Post } from "./http";
-import webhook from './webhook';
+import { webhookServer } from './webhook-server';
+import webhooks from './webhooks';
 
-// Http.when(Get, "/", (_, response) => response.send("OK"));
+export * from './commands';
+export { webhooks, webhookServer };
 
-export { webhook };
+export default {
+  withSecret(secret: string) {
+    return {
+      listen(port: number) {
+        return webhookServer(secret, port);
+      }
+    }
+  }
+}
