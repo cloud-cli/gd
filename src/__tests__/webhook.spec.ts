@@ -1,9 +1,9 @@
-import fixture from './package-published.fixture';
-import { webhooks, DeployCommand } from '../src/index';
+import { webhooks, DeployCommand } from '../index';
+import { publishedMocks } from './fixtures';
 
 describe('webhook', () => {
   it('should ignore a webhook event if the package is not a container', async () => {
-    const webhookEvent = fixture();
+    const webhookEvent = publishedMocks();
     webhookEvent.package.package_type = 'npm';
     const command = await webhooks.published(webhookEvent);
 
@@ -11,7 +11,7 @@ describe('webhook', () => {
   });
 
   it('should process a webhook event when a container is published', async () => {
-    const webhookEvent = fixture();
+    const webhookEvent = publishedMocks();
     const command = await webhooks.published(webhookEvent);
 
     expect(command).toEqual(
@@ -24,7 +24,7 @@ describe('webhook', () => {
   });
 
   it('should process a webhook event coming from a branch', async () => {
-    const webhookEvent = fixture();
+    const webhookEvent = publishedMocks();
     webhookEvent.package.package_version.target_commitish = 'Branch+Name-*invalidchars';
     const command = await webhooks.published(webhookEvent);
 
@@ -38,7 +38,7 @@ describe('webhook', () => {
   });
 
   it('should process a webhook event using a hash as subdomain', async () => {
-    const webhookEvent = fixture();
+    const webhookEvent = publishedMocks();
     webhookEvent.package.package_version.target_commitish = '$%^&---';
     const command = await webhooks.published(webhookEvent);
 

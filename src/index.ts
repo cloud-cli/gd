@@ -1,15 +1,5 @@
-import { webhookServer } from './webhook-server';
-import webhooks from './webhooks';
-
-export * from './commands';
-export { webhooks, webhookServer };
-
-export default {
-  withSecret(secret: string) {
-    return {
-      listen(port: number) {
-        return webhookServer(secret, port);
-      }
-    }
-  }
-}
+export { createServer } from './webhook-server.js';
+export { webhooks } from './webhooks.js';
+export { DeployCommand } from './commands.js';
+export type { ServerCommand } from './commands.js'
+export type { PublishEvent } from './events/published';

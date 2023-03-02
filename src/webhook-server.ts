@@ -1,9 +1,15 @@
-import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { createServer as httpServer, IncomingMessage, ServerResponse } from 'http';
 import { createHmac } from 'crypto';
-import webhooks from './webhooks';
+import { webhooks } from './webhooks.js';
 
-export function webhookServer(secret: string, port: number) {
-  const server = createServer(async (request: IncomingMessage, response: ServerResponse) => {
+export interface ServerOptions {
+  secret: string;
+  port: number;
+  host?: string;
+}
+
+export function createServer({ secret, host, port }: ServerOptions) {
+  const server = httpServer(async (request: IncomingMessage, response: ServerResponse) => {
     const body = await checkBodyAndSignature(request, secret);
 
     if (!body) {
@@ -21,7 +27,7 @@ export function webhookServer(secret: string, port: number) {
     }
   });
 
-  server.listen(port);
+  server.listen(port, host);
 
   return server;
 }

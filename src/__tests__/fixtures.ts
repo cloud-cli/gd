@@ -1,6 +1,6 @@
-import { PublishEvent } from '../src/github';
+import type { PublishEvent } from '../index';
 
-export default () => {
+export const publishedMocks = () => {
   return {
     "action": "published",
     "package": {

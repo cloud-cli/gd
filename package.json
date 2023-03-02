@@ -1,7 +1,7 @@
 {
   "name": "@cloud-cli/gd",
   "version": "0.0.0",
-  "description": "Deploy container from GitHub registry via webhooks",
+  "description": "Receive updates from GitHub webhooks",
   "main": "dist/index.js",
   "type": "module",
   "types": "./dist/index.d.ts",
