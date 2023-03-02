@@ -36,14 +36,12 @@ async function checkBodyAndSignature(request: IncomingMessage, secret: string) {
   try {
     const body = await readBody(request);
 
-    if (!isRequestSignatureValid(request, secret, body)) {
-      return null;
+    if (isRequestSignatureValid(request, secret, body)) {
+      return JSON.parse(String(body));
     }
+  } catch { }
 
-    return JSON.parse(String(body));
-  } catch {
-    return null;
-  }
+  return null;
 }
 
 async function readBody(request: IncomingMessage) {

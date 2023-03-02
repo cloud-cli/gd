@@ -1,6 +1,7 @@
 export default {
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  coveragePathIgnorePatterns: ['/node_modules/', '/__tests__/'],
   coverageThreshold: {
     global: {
       branches: 100,
@@ -10,8 +11,13 @@ export default {
     },
   },
   transformIgnorePatterns: [],
-  moduleFileExtensions: ['ts', 'js'],
+  // moduleFileExtensions: ['ts', 'js'],
+  testMatch: ['**/src/__tests__/**/*.spec.[jt]s?(x)'],
+  extensionsToTreatAsEsm: ['.ts'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   transform: {
-    '\\.[jt]s?$': ['ts-jest', { tsconfig: { allowJs: true } }],
+    '^.+\\.[tj]sx?$': ['ts-jest', { useESM: true }],
   },
 };

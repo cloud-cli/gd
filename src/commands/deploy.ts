@@ -1,4 +1,4 @@
-import { ServerCommand } from './interface';
+import type { ServerCommand } from './interface.js';
 
 export class DeployCommand implements ServerCommand {
   readonly type = 'deploy';

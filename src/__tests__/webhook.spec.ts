@@ -1,5 +1,5 @@
-import { webhooks, DeployCommand } from '../index';
-import { publishedMocks } from './fixtures';
+import { webhooks, DeployCommand } from '../index.js';
+import { publishedMocks } from './fixtures.js';
 
 describe('webhook', () => {
   it('should ignore a webhook event if the package is not a container', async () => {

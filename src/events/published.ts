@@ -1,5 +1,5 @@
 import getPort from 'get-port';
-import { DeployCommand } from '../commands/deploy';
+import { DeployCommand } from '../commands/deploy.js';
 
 export interface PublishEvent {
   action: 'published';
