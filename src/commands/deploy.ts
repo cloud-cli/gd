@@ -7,5 +7,5 @@ export class DeployCommand implements ServerCommand {
   subdomain: string;
   port: number;
 
-  constructor(props: Partial<DeployCommand>) { Object.assign(this, props); }
+  constructor(props: Partial<DeployCommand>) { if (props) Object.assign(this, props); }
 }

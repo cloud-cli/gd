@@ -1,7 +1,7 @@
 import { request } from 'http';
 import { createHmac } from 'crypto';
 import { createServer, DeployCommand, ServerCommand } from '../index.js';
-import { publishedMocks } from './fixtures.js';
+import { publishedMocks } from './webhook.published.js';
 
 const secret = 'e319fa1afb38f7de67056e1a802e89ed311ef02b85a2';
 
