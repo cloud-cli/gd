@@ -28,6 +28,7 @@ export function createServer({ secret, host, port }: ServerOptions) {
   });
 
   server.listen(port, host);
+  console.log('Waiting for webhooks at ', host + port);
 
   return server;
 }

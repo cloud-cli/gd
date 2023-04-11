@@ -2,7 +2,7 @@
   "name": "@cloud-cli/gd",
   "version": "0.0.0",
   "description": "Receive updates from GitHub webhooks",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "type": "module",
   "types": "./dist/index.d.ts",
   "scripts": {
