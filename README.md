@@ -2,6 +2,22 @@
 
 Receive updates from GitHub webhooks
 
+## Events
+
+With Cloudy, listen to events:
+
+```ts
+import { events } from '@cloud-cli/cli';
+
+events.on('gd:command', command => { /* ... */ });
+```
+
+## Commands
+
+**`DeployCommand`:**
+
+Contains a docker image published in GHCR and a version
+
 ## Usage
 
 First create a unique random string to use as secret. For example:
