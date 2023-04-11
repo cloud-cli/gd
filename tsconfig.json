@@ -1,4 +1,8 @@
 {
   "extends": "@cloud-cli/typescript-config",
-  "include": ["./src/**/*"]
+  "compilerOptions": {
+    "outDir": "./dist",
+    "experimentalDecorators": true
+  },
+  "include": ["./src/**/*.ts"]
 }
