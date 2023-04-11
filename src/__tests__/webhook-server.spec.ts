@@ -46,7 +46,9 @@ async function callServer(port, signature, body) {
     });
 
     testRequest.write(body);
-    testRequest.on('response', (response) => resolve(Number(response.statusCode)));
+    testRequest.on('response', (response) => {
+      setTimeout(() => resolve(Number(response.statusCode)), 10);
+    });
     testRequest.end();
   });
 }

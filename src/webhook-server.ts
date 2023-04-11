@@ -8,7 +8,7 @@ export interface ServerOptions {
   host?: string;
 }
 
-export function createServer({ secret, host, port }: ServerOptions) {
+export function createServer({ secret, host = '', port }: ServerOptions) {
   const server = httpServer(async (request: IncomingMessage, response: ServerResponse) => {
     const body = await checkBodyAndSignature(request, secret);
 
@@ -23,12 +23,12 @@ export function createServer({ secret, host, port }: ServerOptions) {
 
     if (body.action in webhooks) {
       const command = await webhooks[body.action](body);
-      server.emit('command', command);
+      setTimeout(() => server.emit('command', command));
     }
   });
 
   server.listen(port, host);
-  console.log('Waiting for webhooks at ', host + port);
+  console.log('Waiting for webhooks at %s:%s', host, port);
 
   return server;
 }
