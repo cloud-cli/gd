@@ -16,9 +16,8 @@ describe('webhook', () => {
 
     expect(command).toEqual(
       new DeployCommand({
-        dockerImage: 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
-        subdomain: 'main',
-        port: expect.any(Number),
+        image: 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
+        version: 'latest',
       }),
     );
   });
@@ -30,9 +29,8 @@ describe('webhook', () => {
 
     expect(command).toEqual(
       new DeployCommand({
-        dockerImage: 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
-        subdomain: 'branchna',
-        port: expect.any(Number),
+        image: 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
+        version: 'branchna',
       }),
     );
   });
@@ -44,9 +42,8 @@ describe('webhook', () => {
 
     expect(command).toEqual(
       new DeployCommand({
-        dockerImage: 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
-        subdomain: '8778a1b6',
-        port: expect.any(Number),
+        image: 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
+        version: '8778a1b6',
       }),
     );
   });

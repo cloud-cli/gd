@@ -1,4 +1,3 @@
-import getPort from 'get-port';
 import { DeployCommand } from '../commands/deploy.js';
 
 export interface PublishEvent {
@@ -20,10 +19,10 @@ export interface PublishEvent {
   };
 }
 
-const invalidSubDomainChars = /[^a-z0-9]/g;
+const invalidDomainChars = /[^a-z0-9]/g;
 const toSubDomain = (details: PublishEvent['package']['package_version']) =>
   (
-    details.target_commitish.toLowerCase().replace(invalidSubDomainChars, '') ||
+    details.target_commitish.toLowerCase().replace(invalidDomainChars, '') ||
     details.target_oid
   ).slice(0, 8);
 
@@ -31,9 +30,9 @@ export async function published(event: PublishEvent) {
   if (event.package.package_type.toLowerCase() !== 'container') return null;
 
   const { package: pkg } = event;
-  const dockerImage = pkg.package_version.package_url;
+  const image = pkg.package_version.package_url;
   const isFromMain = ['main', 'master'].includes(pkg.package_version.target_commitish);
-  const subdomain = !isFromMain ? toSubDomain(pkg.package_version) : 'main';
+  const version = !isFromMain ? toSubDomain(pkg.package_version) : 'latest';
 
-  return new DeployCommand({ subdomain, dockerImage, port: await getPort() })
+  return new DeployCommand({ version, image: image })
 }

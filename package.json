@@ -26,6 +26,6 @@
     "access": "public"
   },
   "dependencies": {
-    "get-port": "^6.1.2"
+    "@cloud-cli/cli": "^1.4.4"
   }
 }
