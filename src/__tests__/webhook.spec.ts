@@ -10,6 +10,14 @@ describe('webhook', () => {
     expect(command).toBe(null);
   });
 
+  it('should ignore events coming from intermediate layers being published', async () => {
+    const webhookEvent = publishedMocks();
+    webhookEvent.package.package_version.package_url = 'ghcr.io/cloud-cli/dummy:';
+    const command = await webhooks.published(webhookEvent);
+
+    expect(command).toBe(null);
+  });
+  
   it('should process a webhook event when a container is published', async () => {
     const webhookEvent = publishedMocks();
     const command = await webhooks.published(webhookEvent);
