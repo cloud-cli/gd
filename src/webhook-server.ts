@@ -23,7 +23,10 @@ export function createServer({ secret, host = '', port }: ServerOptions) {
 
     if (body.action in webhooks) {
       const command = await webhooks[body.action](body);
-      setTimeout(() => server.emit('command', command));
+      
+      if (command) {
+        setTimeout(() => server.emit('command', command));
+      }
     }
   });
 

@@ -27,12 +27,21 @@ const toSubDomain = (details: PublishEvent['package']['package_version']) =>
   ).slice(0, 8);
 
 export async function published(event: PublishEvent) {
-  if (event.package.package_type.toLowerCase() !== 'container') return null;
+  if (event.package.package_type.toLowerCase() !== 'container') {
+    return null;
+  }
 
   const { package: pkg } = event;
   const image = pkg.package_version.package_url;
+  
+  const validEvent = !image.endsWith(':') && pkg.package_version.package_url.includes(pkg.package_version.target_oid);
+  if (!validEvent) {
+    return null;
+  }
+
   const isFromMain = ['main', 'master'].includes(pkg.package_version.target_commitish);
   const version = !isFromMain ? toSubDomain(pkg.package_version) : 'latest';
+
 
   return new DeployCommand({ version, image: image })
 }
