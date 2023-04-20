@@ -253,7 +253,7 @@ export const publishedMocks = () => {
         },
         package_files: [],
         installation_command: 'docker pull ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
-        package_url: 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7',
+        package_url: 'ghcr.io/cloud-cli/dummy:latest',
       },
       registry: {
         about_url: 'https://docs.github.com/packages/learn-github-packages/introduction-to-github-packages',
@@ -399,3 +399,29 @@ export const publishedMocks = () => {
     },
   } as PublishEvent;
 };
+
+export const publishedLayerMocks = () => {
+  const event = publishedMocks();
+  event.package.package_version.package_url = 'ghcr.io/cloud-cli/dummy:';
+  return event;
+}
+
+export const publishedShaMocks = () => {
+  const event = publishedMocks();
+  event.package.package_version.package_url = 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7';
+  return event;
+}
+
+export const publishedFromBranchMocks = () => {
+  const event = publishedMocks();
+  event.package.package_version.target_commitish = '8778a1b61e227c85276c1f8e3b20c84b27c543b7';
+  event.package.package_version.package_url = 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7';
+  return event;
+}
+
+export const publishedInvalidBranchCharsMocks = () => {
+  const event = publishedMocks();
+  event.package.package_version.target_commitish = 'Branch+Name-*invalidchars';
+  event.package.package_version.package_url = 'ghcr.io/cloud-cli/dummy:8778a1b61e227c85276c1f8e3b20c84b27c543b7';
+  return event;
+}

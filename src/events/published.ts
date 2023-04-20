@@ -32,23 +32,20 @@ export async function published(event: PublishEvent) {
   }
 
   const { package: pkg } = event;
-  const version = pkg.package_version;
+  const v = pkg.package_version;
 
-  const image = version.package_url;
-  const isFromTrunk = ['main', 'master'].includes(version.target_commitish);
+  const image = v.package_url;
+  const isFromTrunk = ['main', 'master'].includes(v.target_commitish);
   const isNotALayer = !image.endsWith(':');
   const isValidFromTrunk = isFromTrunk && image.endsWith(':latest');
-  const isValidFromBranch = !isFromTrunk && image.includes(version.target_oid);
-
+  const isValidFromBranch = !isFromTrunk && image.includes(v.target_oid);
   const validEvent = isNotALayer && (isValidFromTrunk || isValidFromBranch);
 
   if (!validEvent) {
     return null;
   }
 
-  const isFromMain = ['main', 'master'].includes(pkg.package_version.target_commitish);
-  const version = !isFromMain ? toSubDomain(pkg.package_version) : 'latest';
-
+  const version = isFromTrunk ? 'latest' : toSubDomain(pkg.package_version);
 
   return new DeployCommand({ version, image: image })
 }
