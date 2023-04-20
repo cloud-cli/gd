@@ -32,9 +32,16 @@ export async function published(event: PublishEvent) {
   }
 
   const { package: pkg } = event;
-  const image = pkg.package_version.package_url;
-  
-  const validEvent = !image.endsWith(':') && pkg.package_version.package_url.includes(pkg.package_version.target_oid);
+  const version = pkg.package_version;
+
+  const image = version.package_url;
+  const isFromTrunk = ['main', 'master'].includes(version.target_commitish);
+  const isNotALayer = !image.endsWith(':');
+  const isValidFromTrunk = isFromTrunk && image.endsWith(':latest');
+  const isValidFromBranch = !isFromTrunk && image.includes(version.target_oid);
+
+  const validEvent = isNotALayer && (isValidFromTrunk || isValidFromBranch);
+
   if (!validEvent) {
     return null;
   }
