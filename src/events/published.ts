@@ -21,10 +21,11 @@ export interface PublishEvent {
 
 const invalidDomainChars = /[^a-z0-9]/g;
 const toSubDomain = (details: PublishEvent['package']['package_version']) =>
-  (
-    details.target_commitish.toLowerCase().replace(invalidDomainChars, '') ||
+  [
+    details.target_commitish.toLowerCase().replace(invalidDomainChars, ''),
     details.target_oid
-  ).slice(0, 8);
+  ]
+  .filter(Boolean).join('').slice(0, 8);
 
 export async function published(event: PublishEvent) {
   if (event.package.package_type.toLowerCase() !== 'container') {
