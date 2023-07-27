@@ -28,7 +28,7 @@ const toSubDomain = (details: PublishEvent['package']['package_version']) =>
   .filter(Boolean).join('').slice(0, 8);
 
 export async function published(event: PublishEvent) {
-  if (event.package.package_type.toLowerCase() !== 'container') {
+  if (event.package?.package_type.toLowerCase() !== 'container') {
     return null;
   }
 
